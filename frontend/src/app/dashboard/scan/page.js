@@ -1,12 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import DashboardLayout from '@/components/DashboardLayout'
 
 const ScanPage = () => {
   const [result, setResult] = useState(null)
-  const qrRef = useRef(null)
 
   useEffect(() => {
     const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 })

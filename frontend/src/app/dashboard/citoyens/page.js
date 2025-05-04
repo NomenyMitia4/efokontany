@@ -2,8 +2,6 @@
 
 import CitoyenTable from '@/components/CitoyenTable'
 import DashboardLayout from '@/components/DashboardLayout'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 const CitoyensPage = () => {
   return (

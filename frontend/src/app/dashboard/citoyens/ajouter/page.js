@@ -59,7 +59,7 @@ const AjouterCitoyen = () => {
 
           <div className="row">
             <div className="mb-3 col-md-6">
-              <label className="form-label">Nombre d'enfants</label>
+              <label className="form-label">Nombre d&apos;enfants</label>
               <input type="number" className="form-control" name="nbEnfants" value={form.nbEnfants} onChange={handleChange} required />
             </div>
             <div className="mb-3 col-md-6 d-flex align-items-end">
