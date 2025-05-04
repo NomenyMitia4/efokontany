@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #24c86b;
+  --primary-hover: #198754;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.color-green {
+  color: #24c86b;
+}
+
+/* login */
+.logo-login{
+  font-size: 3rem;
+  color: #24c86b;
+  font-weight: 900;
+}
+
+/* sidebard */
+.logo{
+  font-size: 2rem;
+  color: #24c86b;
+}
+
+.nav-link{
+  color: black;
+  &:hover {
+    color: var(--primary);
+  }
+}
+.custom-active {
+  background-color: #24c86b !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.button-cta{
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.button-cta:hover{
+  background-color: var(--primary-hover);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
