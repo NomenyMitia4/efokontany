@@ -89,7 +89,11 @@ const AjouterCitoyen = () => {
               <label className="form-label">Statut civil</label>
               <select name="statut" className="form-select" value={form.statut} onChange={handleChange} required>
                 <option value="Célibataire">Célibataire</option>
-                <option value="Marié">Marié</option>
+                <option value="Marié">Marié(e)</option>
+                <option value="Divorcé">Divorcé(e)</option>
+                <option value="Veuf">Veuf(ve)</option>
+                <option value="UnionLibre">Union libre</option>
+                <option value="Séparé(e)">Séparé(e)</option>
               </select>
             </div>
             <div className="mb-3 col-md-6">

@@ -78,7 +78,7 @@ const CitoyenTable = () => {
         <thead className="table-light">
           <tr>
             <th>Nom</th>
-            <th>Statut</th>
+            <th>Contact</th>
             <th>Priorité</th>
           </tr>
         </thead>
@@ -93,7 +93,7 @@ const CitoyenTable = () => {
                   {c.nom}{" "}{c.prenom}
                 </Link>
               </td>
-              <td>{c.statut}</td>
+              <td>{c.contact}</td>
               <td>{c.priorité}</td>
             </tr>
           ))}
