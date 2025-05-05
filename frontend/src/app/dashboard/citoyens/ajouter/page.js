@@ -2,20 +2,29 @@
 
 import DashboardLayout from '@/components/DashboardLayout'
 import { useState } from 'react'
-//import { useRouter } from 'next/navigation'
 import QRCode from 'qrcode'
 
 const AjouterCitoyen = () => {
-  //const router = useRouter()
   const [qrCodeUrl, setQrCodeUrl] = useState('')
+  //const [photo, setPhoto] = useState(null)
+  const [photoPreview, setPhotoPreview] = useState('')
   const [form, setForm] = useState({
     nom: '', prenom: '', email: '', contact: '', nbEnfants: '',
-    handicap: false, revenu: '', statut: '', village: '', dateNaissance: '', profession: '', cin: ''
+    handicap: false, revenu: '', statut: '', village: '', dateNaissance: '',
+    profession: '', cin: ''
   })
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
     setForm({ ...form, [name]: type === 'checkbox' ? checked : value })
+  }
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setPhoto(file)
+      setPhotoPreview(URL.createObjectURL(file))
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -24,7 +33,8 @@ const AjouterCitoyen = () => {
       id: Math.floor(Math.random() * 100000),
       ...form,
       dateAjout: new Date().toISOString(),
-      dateMaj: new Date().toISOString()
+      dateMaj: new Date().toISOString(),
+      photo: photoPreview // optionnel
     }
 
     const profileUrl = `${window.location.origin}/dashboard/citoyens/${citoyen.id}`
@@ -72,7 +82,7 @@ const AjouterCitoyen = () => {
           </div>
 
           <div className="row">
-          <div className="mb-3 col-md-6">
+            <div className="mb-3 col-md-6">
               <label className="form-label">Rue</label>
               <input className="form-control" name="village" value={form.village} onChange={handleChange} required />
             </div>
@@ -88,6 +98,7 @@ const AjouterCitoyen = () => {
             <div className="mb-3 col-md-6">
               <label className="form-label">Statut civil</label>
               <select name="statut" className="form-select" value={form.statut} onChange={handleChange} required>
+                <option value="">-- Choisir --</option>
                 <option value="Célibataire">Célibataire</option>
                 <option value="Marié">Marié(e)</option>
                 <option value="Divorcé">Divorcé(e)</option>
@@ -105,12 +116,28 @@ const AjouterCitoyen = () => {
           <div className="row">
             <div className="mb-3 col-md-6">
               <label className="form-label">Profession</label>
-              <input className="form-control" name="profession" value={form.profession} onChange={handleChange}/>
+              <input className="form-control" name="profession" value={form.profession} onChange={handleChange} />
             </div>
             <div className="mb-3 col-md-6">
               <label className="form-label">Revenu par mois (en Ariary)</label>
               <input className="form-control" name="revenu" value={form.revenu} onChange={handleChange} required />
             </div>
+          </div>
+
+          {/* Champ Image */}
+          <div className="mb-3">
+            <label className="form-label">Photo de profil</label>
+            <input
+              type="file"
+              accept="image/*"
+              className="form-control"
+              onChange={handlePhotoChange}
+            />
+            {photoPreview && (
+              <div className="mt-3 text-center">
+                <img src={photoPreview} alt="Aperçu" style={{ width: '150px', borderRadius: '8px' }} />
+              </div>
+            )}
           </div>
 
           <button type="submit" className="button-cta w-100 mt-3">
@@ -129,4 +156,4 @@ const AjouterCitoyen = () => {
   )
 }
 
-export default AjouterCitoyen
+export default AjouterCitoyen;

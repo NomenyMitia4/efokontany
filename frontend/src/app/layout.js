@@ -9,6 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
+      <head>
+        <link rel="icon" href="/photo/favicon.png" sizes="any" />
+        <title>Efokontany</title>
+      </head>
       <body>{children}</body>
     </html>
   )

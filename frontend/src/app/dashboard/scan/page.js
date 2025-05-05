@@ -28,7 +28,7 @@ const ScanPage = () => {
   return (
     <DashboardLayout>
       <div className="p-4">
-        <h2 className="text-success mb-4">Scanner un QR Code</h2>
+        <h2 className="color-green mb-4">Scanner un QR Code</h2>
         {result ? (
           <div className="alert alert-success">
             ✅ Résultat : <strong>{result}</strong>
@@ -41,4 +41,4 @@ const ScanPage = () => {
   )
 }
 
-export default ScanPage
+export default ScanPage;
