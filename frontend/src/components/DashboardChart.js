@@ -1,15 +1,20 @@
 'use client'
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
-
-const data = [
-  { statut: 'Travailleur actif', count: 60 },
-  { statut: 'Senior isolé', count: 25 },
-  { statut: 'Mère seule', count: 20 },
-  { statut: 'Personne handicapée', count: 12 },
-]
+import { citoyens } from '@/data/citoyens'
 
 const DashboardChart = () => {
+  // Regrouper les citoyens par statut
+  const stats = citoyens.reduce((acc, citoyen) => {
+    const statut = citoyen.statut || 'Inconnu'
+    acc[statut] = (acc[statut] || 0) + 1
+    return acc
+  }, {})
+
+  const data = Object.entries(stats)
+    .map(([statut, count]) => ({ statut, count }))
+    .sort((a, b) => b.count - a.count)
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>

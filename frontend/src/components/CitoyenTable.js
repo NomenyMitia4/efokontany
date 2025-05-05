@@ -2,77 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-
-export const citoyens = [
-  {
-    id: 1,
-    nom: 'Rasoanaivo',
-    prenom: 'Lala',
-    email: 'lala.rasoanaivo@example.com',
-    contact: '0321234567',
-    adresse: 'Lot II A 123',
-    dateNaissance: '1995-01-22',
-    nbEnfants: 3,
-    handicap: false,
-    job: 'Ingénieur',
-    revenu: 120000,
-    statut: 'Marié',
-    priorité: 1,
-    dateAjout: '2025-05-04T12:00:00',
-    dateMaj: '2025-05-04T12:00:00'
-  },
-  {
-    id: 2,
-    nom: 'Rakoto',
-    prenom: 'Jean',
-    email: 'jean.rakoto@example.com',
-    contact: '0349876543',
-    adresse: 'Lot II A 123',
-    dateNaissance: '1990-07-09',
-    nbEnfants: 2,
-    handicap: true,
-    job: 'Agriculteur',
-    revenu: 60000,
-    statut: 'Célibataire',
-    priorité: 3,
-    dateAjout: '2025-05-04T12:00:00',
-    dateMaj: '2025-05-04T12:00:00'
-  },
-  {
-    id: 3,
-    nom: 'Ranaivo',
-    prenom: 'Andry',
-    email: '',
-    contact: '0337654321',
-    adresse: 'Lot II A 123',
-    dateNaissance: '1985-03-15',
-    nbEnfants: 1,
-    handicap: false,
-    job: 'Vendeur',
-    revenu: 100000,
-    statut: 'Marié',
-    priorité: 2,
-    dateAjout: '2025-05-04T12:00:00',
-    dateMaj: '2025-05-04T12:00:00'
-  },
-  {
-    id: 4,
-    nom: 'Koto',
-    prenom: 'Fetra',
-    email: '',
-    contact: '0323456789',
-    adresse: 'Lot II A 123',
-    dateNaissance: '1972-11-02',
-    nbEnfants: 0,
-    handicap: true,
-    job: 'Dokera',
-    revenu: 25000,
-    statut: 'Célibataire',
-    priorité: 5,
-    dateAjout: '2025-05-04T12:00:00',
-    dateMaj: '2025-05-04T12:00:00'
-  }
-]
+import { citoyens } from '@/data/citoyens'
 
 const CitoyenTable = () => {
   const [search, setSearch] = useState('')

@@ -1,11 +1,12 @@
-// 📦 components/DashboardStats.js
 'use client'
 
+import { citoyens } from '@/data/citoyens'
+
 const DashboardStats = () => {
-  // 🔧 Données simulées
-  const totalCitoyens = 124
-  const totalPrioritaires = 35
-  const avecHandicap = 12
+  const totalCitoyens = citoyens.length
+  const avecHandicap = citoyens.filter(c => c.handicap).length
+
+  const totalPrioritaires = citoyens.filter(c => c.priorité > 4).length
 
   const pourcentHandicap = ((avecHandicap / totalCitoyens) * 100).toFixed(1)
   const pourcentPrioritaires = ((totalPrioritaires / totalCitoyens) * 100).toFixed(1)
