@@ -1,5 +1,12 @@
 from django.utils import timezone
 from django.db import models
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error
 
 # Create your models here.
 class Citizen(models.Model):
@@ -20,13 +27,15 @@ class Citizen(models.Model):
     
 class ProfileClassification(models.Model):
     citizen = models.ForeignKey(Citizen, on_delete=models.CASCADE)
-    profile = models.CharField(default="Prioritaire", max_length=100)
     priority = models.DecimalField(default=0, max_digits=3, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.citizen.fullname
+    
+
+    
     
 class History(models.Model):
     citizen = models.ForeignKey(Citizen, on_delete=models.CASCADE)
