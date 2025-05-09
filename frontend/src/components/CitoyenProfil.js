@@ -22,7 +22,6 @@ const CitoyenProfil = ({ citoyen }) => {
         <h3 className="color-green mb-3">Profil de {citoyen.nom} {citoyen.prenom}</h3>
         <p><strong>Email :</strong> {citoyen.email || 'Non fourni'}</p>
         <p><strong>Contact :</strong> {citoyen.contact}</p>
-        <p><strong>Date de naissance :</strong> {citoyen.dateNaissance}</p>
         <p><strong>Âge :</strong> {calculerAge(citoyen.dateNaissance)} ans</p>
         <p><strong>Nombre d&apos;enfants :</strong> {citoyen.nbEnfants}</p>
         <p><strong>Handicap :</strong> {citoyen.handicap ? 'Oui' : 'Non'}</p>

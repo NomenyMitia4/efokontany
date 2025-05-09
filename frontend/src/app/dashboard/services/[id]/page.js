@@ -12,25 +12,28 @@ const PageService = () => {
     services.find((s) => s.id === Number(id))
   );
   const [beneficiaires, setBeneficiaires] = useState(citoyens);
+  const [filtrePriorite, setFiltrePriorite] = useState("");
 
   const offrirService = (citoyenId) => {
-    if (service.quantite < service.unite)
-      return alert("Quantité insuffisante !");
+    if (service.quantite < service.unite) return;
 
-    // Réduire la quantité
     const newQuantite = service.quantite - service.unite;
     setService({ ...service, quantite: newQuantite });
 
-    // Supprimer le citoyen de la liste
     setBeneficiaires((prev) => prev.filter((c) => c.id !== citoyenId));
 
-    // Mettre à jour la priorité et date de mise à jour
     const index = citoyens.findIndex((c) => c.id === citoyenId);
     if (index !== -1) {
-      citoyens[index].priorité += 1;
+      citoyens[index].priorité = Math.max(1, citoyens[index].priorité - 1);
       citoyens[index].dateMaj = new Date().toISOString();
     }
   };
+
+  const filtered = [...beneficiaires]
+    .filter((c) =>
+      filtrePriorite ? c.priorité.toString() === filtrePriorite : true
+    )
+    .sort((a, b) => b.priorité - a.priorité);
 
   return (
     <DashboardLayout>
@@ -41,21 +44,37 @@ const PageService = () => {
         <p>
           Quantité restante : <strong>{service.quantite}</strong>
         </p>
+
+        <div className="mb-3 row">
+          <div className="col-md-4">
+            <select
+              className="form-select"
+              value={filtrePriorite}
+              onChange={(e) => setFiltrePriorite(e.target.value)}
+            >
+              <option value="">Toutes les priorités</option>
+              <option value="5">Priorité 5</option>
+              <option value="4">Priorité 4</option>
+              <option value="3">Priorité 3</option>
+              <option value="2">Priorité 2</option>
+              <option value="1">Priorité 1</option>
+            </select>
+          </div>
+        </div>
+
         <table className="table table-bordered table-striped">
           <thead>
             <tr>
               <th>Nom</th>
-              <th>Contact</th>
+              <th>Priorité</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {beneficiaires.map((c) => (
+            {filtered.map((c) => (
               <tr key={c.id}>
-                <td>
-                  {c.nom} {c.prenom}
-                </td>
-                <td>{c.contact}</td>
+                <td>{c.nom} {c.prenom}</td>
+                <td>{c.priorité}</td>
                 <td>
                   {service.quantite >= service.unite && (
                     <button
@@ -70,8 +89,9 @@ const PageService = () => {
             ))}
           </tbody>
         </table>
-        {beneficiaires.length === 0 && (
-          <p className="text-muted">Tous les citoyens ont reçu ce service.</p>
+
+        {filtered.length === 0 && (
+          <p className="text-muted">Aucun citoyen trouvé pour cette priorité.</p>
         )}
       </div>
     </DashboardLayout>

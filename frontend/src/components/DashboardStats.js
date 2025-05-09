@@ -1,48 +1,43 @@
 'use client'
 
-import { citoyens } from '@/data/citoyens'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const DashboardStats = () => {
-  const [citizen, setCitizen] = useState()
-  const [handicap, setHandicap] = useState()
-  const [prioritizedCitizen, setPrioritzedCitizen] = useState()
+  const [citizen, setCitizen] = useState(0)
+  const [handicap, setHandicap] = useState(0)
+  const [prioritizedCitizen, setPrioritizedCitizen] = useState(0)
 
-  const getData = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/dashboard/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include'
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/dashboard/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        setCitizen(data.registered_citizen)
+        setHandicap(Number(data.pourcentage_handicap.toFixed(1)))
+        setPrioritizedCitizen(data.prioritized_citizen)
+      } catch (err) {
+        console.error('Error fetching data:', err)
       }
-  
-      const data = await response.json();
-      setCitizen(data.registered_citizen)
-      setHandicap(data.pourcentage_handicap.toFixed(1))
-      setPrioritzedCitizen(data.prioritized_citizen)
-      
-    } catch (err) {
-      console.error('Error fetching data:', err);
-      // You might want to handle the error in your UI
-      throw err; // Re-throw if you want calling code to handle it
     }
-  }
 
-  const data = getData()
+    getData()
+  }, [])
 
-  const totalCitoyens = citoyens.length
-  const avecHandicap = citoyens.filter(c => c.handicap).length
-
-  const totalPrioritaires = citoyens.filter(c => c.priorité > 4).length
-
-  const pourcentHandicap = ((avecHandicap / totalCitoyens) * 100).toFixed(1)
-  const pourcentPrioritaires = ((prioritizedCitizen / citizen) * 100).toFixed(1)
+  // Pourcentages dynamiques depuis l'API
+  const pourcentPrioritaires = citizen > 0
+    ? ((prioritizedCitizen / citizen) * 100).toFixed(1)
+    : '0.0'
 
   return (
     <div className="row text-center">
