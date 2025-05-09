@@ -10,13 +10,36 @@ const LoginPage = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (email === 'admin@fokontany.com' && password === '1234') {
-      router.push('/dashboard')
+    setError('')
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/user/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+      });
+      const data = await response.json();
+
+    if (response.ok) {
+      // Successful login
+      // You might want to store the token/user data here
+      router.push('/dashboard');
     } else {
-      setError('Email ou mot de passe incorrect')
+      // Handle errors from backend
+      setError(data.message || 'Email ou mot de passe incorrect');
     }
+    } catch (err) {
+      // Handle network errors
+      setError('Erreur de connexion au serveur');
+      console.error('Login error:', err);
+      }
   }
 
   return (

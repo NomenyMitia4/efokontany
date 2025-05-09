@@ -88,14 +88,6 @@ class ProfileClassification(models.Model):
                     'Job': data["job"],
                     'Age': 30
                 }
-            # new_data = {
-            # 'Handicap': 'non',
-            # 'Income': 0,
-            # 'Children': 0,
-            # 'Status': 'marié',
-            # 'Job': 'sans emploi',
-            # 'Age': 30
-            # }
 
             new_df = pd.DataFrame([new_data])
             predicted_score = self.model.predict(new_df)
@@ -107,31 +99,6 @@ class ProfileClassification(models.Model):
             results.append(predicted_score)
         
         return results
-            
-        # for data in datas:
-        #     print(data["fullname"])
-        #     nouvelle_ligne = {
-        #         'Handicap': data["handicap"],
-        #         'Income': data["income"],
-        #         'Children': data['children'],
-        #         'Status': data['status'],
-        #         'Job': data['job'],
-        #         'Age': 30
-        #     }
-        
-        #     # 6. Encoder la nouvelle ligne:
-        #     for col in self.column:
-        #         try:
-        #             nouvelle_ligne[col] = self.encoders[col].transform([nouvelle_ligne[col]])[0]
-        #         except ValueError as e:
-        #             # Handle unknown categories (e.g., replace with most frequent)
-        #             nouvelle_ligne[col] = 0 
-        # # # 7. Prédire le score
-        # # ligne = pd.DataFrame([nouvelle_ligne])
-        # # score_prédit = self.model.predict(ligne)
-
-        # # # 8. Afficher le score avec 2 décimales
-        # # print(f"Score prédit : {score_prédit[0]:.2f}")
         
 class History(models.Model):
     citizen = models.ForeignKey(Citizen, on_delete=models.CASCADE)

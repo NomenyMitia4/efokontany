@@ -33,5 +33,5 @@ class Dashboard(models.Model):
         return pourcentage
 
     def calculate_prioritized_citizen():
-        prioritized_citizen = ProfileClassification.objects.filter(profile="P").count()
+        prioritized_citizen = ProfileClassification.objects.filter(priority__gte=0.9).count()
         return prioritized_citizen
