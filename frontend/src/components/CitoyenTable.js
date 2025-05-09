@@ -1,12 +1,37 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { citoyens } from '@/data/citoyens'
 
 const CitoyenTable = () => {
   const [search, setSearch] = useState('')
   const [priorite, setPriorite] = useState('')
+
+  useEffect(() => {
+      const getData = async () => {
+        try {
+          const response = await fetch('http://127.0.0.1:8000/api/citizen/', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+          })
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+          }
+  
+          const data = await response.json()
+          console.log(data);
+        } catch (err) {
+          console.error('Error fetching data:', err)
+        }
+      }
+  
+      getData()
+    }, [])
 
   const filtered = citoyens.filter((c) => {
     const nomMatch = `${c.nom} ${c.prenom}`.toLowerCase().includes(search.toLowerCase())
